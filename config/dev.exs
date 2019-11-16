@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :sphere_todo, SphereTodo.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "sphere_todo_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -16,7 +16,7 @@ config :sphere_todo, SphereTodo.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :sphere_todo, SphereTodoWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: System.get_env("PORT") || 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

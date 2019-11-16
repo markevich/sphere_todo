@@ -1,0 +1,49 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>todos</h1>
+    <form action="#" phx-submit="add">
+      <%= text_input :todo, :title, placeholder: "What needs to be done", class: "new-todo" %>
+      <%= submit "Add", phx_disable_with: "Adding..." %>
+    </form>
+  </header>
+  <section class="main" >
+    <input class="toggle-all" type="checkbox" >
+    <label for="toggle-all" ></label>
+    <ul class="todo-list" >
+      <%= for todo <- @todos do %>
+        <li class="<%= if(todo.done, do: "completed", else: "") %>">
+          <div class="view" >
+            <form action="#" phx-change="change">
+              <%= checkbox(:todo, :done, value: todo.done, class: "toggle") %>
+              <%= text_input(:todo, :title, value: todo.title) %>
+              <%= hidden_input(:todo, :id, value: todo.id) %>
+            </form>
+            <button class="destroy" ></button>
+          </div>
+          <input class="edit" value="test" >
+        </li>
+      <% end %>
+    </ul>
+  </section>
+  <footer class="footer">
+    <span class="todo-count">
+      <strong><%= @uncompleted_count %></strong>
+      <span > </span>
+      <span>items</span>
+      <span> left</span>
+    </span>
+    <ul class="filters">
+      <li>
+        <%= link("All", to: "#", phx_click: "set_filter", phx_value_filter: "all", class: if(@filter == "all", do: "selected", else: "")) %>
+      </li>
+      <span> </span>
+      <li>
+        <%= link("Active", to: "#", phx_click: "set_filter", phx_value_filter: "active", class: if(@filter == "active", do: "selected", else: "")) %>
+      </li>
+      <span> </span>
+      <li>
+        <%= link("Completed", to: "#", phx_click: "set_filter", phx_value_filter: "completed", class: if(@filter == "completed", do: "selected", else: "")) %>
+      </li>
+    </ul>
+  </footer>
+</section>
